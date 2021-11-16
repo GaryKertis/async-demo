@@ -1,20 +1,44 @@
+// -> 1 = The big Lebowski
+
 // simple example with callbacks.
-const getUserName = (id, callback) => {
-  setTimeout(() => {
-    if (id === 1) {
-      callback("Gary");
-    } else if (id === 2) {
-      callback("Pete");
-    }
-  }, 1000);
+
+(name) => {
+  // ??? MYSTERIOUS STUFF.
+  // DO something mysterious with name.
 };
 
-const getFavoriteMovie = (user, callback) => {
-  setTimeout(() => {
-    if (user === "Gary") {
-      callback("The Big Lebowski");
-    } else if (user === "Pete") {
-      callback("The Penguins of Madagascar");
-    }
-  }, 1000);
+const getUserName = (id) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      if (id === 1) {
+        resolve("Gary");
+      } else if (id === 2) {
+        resolve("Pete");
+      }
+    }, 1000);
+  });
 };
+
+const getFavoriteMovie = (user) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      if (user === "Gary") {
+        resolve("The Big Lebowski");
+      } else if (user === "Pete") {
+        resolve("The Penguins of Madagascar");
+      }
+    }, 1000);
+  });
+};
+
+const doStuff = async () => {
+  try {
+    let userName = await getUserName(1);
+    let favoriteMovie = await getFavoriteMovie(userName);
+  } catch (e) {
+    console.error(e);
+  }
+  console.log(favoriteMovie);
+};
+
+doStuff();
